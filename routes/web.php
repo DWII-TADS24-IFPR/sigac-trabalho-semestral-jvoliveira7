@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\GraficoController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsAluno;
 
+
 Route::get('/', fn () => redirect('/login'));
 
 Route::get('/dashboard', function () {
@@ -32,16 +33,22 @@ Route::get('/dashboard', function () {
     return redirect('/login');
 })->middleware(['auth'])->name('dashboard');
 
+
 Route::middleware(['auth', IsAluno::class])->prefix('aluno')->name('aluno.')->group(function () {
     Route::get('/home', [AlunoHomeController::class, 'index'])->name('home');
     Route::get('comprovantes', [ComprovanteAlunoController::class, 'index'])->name('comprovantes.index');
     Route::get('comprovantes/create', [ComprovanteAlunoController::class, 'create'])->name('comprovantes.create');
     Route::post('comprovantes', [ComprovanteAlunoController::class, 'store'])->name('comprovantes.store');
+
+    // Futuro: declarações
+    // Route::get('declaracao', [DeclaracaoAlunoController::class, 'show'])->name('declaracao');
 });
+
 
 Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/home', [AdminHomeController::class, 'index'])->name('home');
 
+    // CRUDs
     Route::resources([
         'alunos' => AlunoController::class,
         'categorias' => CategoriaController::class,
@@ -56,8 +63,10 @@ Route::middleware(['auth', IsAdmin::class])->prefix('admin')->name('admin.')->gr
     Route::patch('/comprovantes/{id}/aprovar', [ComprovanteController::class, 'aprovar'])->name('comprovantes.aprovar');
     Route::patch('/comprovantes/{id}/reprovar', [ComprovanteController::class, 'reprovar'])->name('comprovantes.reprovar');
 
+
     Route::get('/graficos', [GraficoController::class, 'index'])->name('graficos');
 });
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

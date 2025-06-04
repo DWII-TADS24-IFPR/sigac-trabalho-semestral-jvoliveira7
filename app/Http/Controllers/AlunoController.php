@@ -23,7 +23,7 @@ class AlunoController extends Controller
     public function store(StoreAlunoRequest $request): RedirectResponse
     {
         Aluno::create($request->validated());
-        return redirect()->route('alunos.index')->with('success', 'Aluno criado com sucesso.');
+        return redirect()->route('admin.alunos.index')->with('success', 'Aluno criado com sucesso.');
     }
 
     public function show(Aluno $aluno): View
@@ -39,12 +39,12 @@ class AlunoController extends Controller
     public function update(UpdateAlunoRequest $request, Aluno $aluno): RedirectResponse
     {
         $aluno->update($request->validated());
-        return redirect()->route('alunos.index')->with('success', 'Aluno atualizado com sucesso.');
+        return redirect()->route('admin.alunos.index')->with('success', 'Aluno atualizado com sucesso.');
     }
 
     public function destroy(Aluno $aluno): RedirectResponse
     {
         $aluno->delete();
-        return redirect()->route('alunos.index')->with('success', 'Aluno excluído com sucesso.');
+        return redirect()->route('admin.alunos.index')->with('success', 'Aluno excluído com sucesso.');
     }
 }

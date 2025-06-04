@@ -86,7 +86,7 @@ class ComprovanteController extends Controller
         $comprovante->save();
 
         $aluno = $comprovante->aluno;
-        $aluno->horas_cumpridas += $comprovante->carga_horaria;
+        $aluno->horas_completas += $comprovante->carga_horaria;
         $aluno->save();
 
         return redirect()->back()->with('success', 'Comprovante aprovado com sucesso!');

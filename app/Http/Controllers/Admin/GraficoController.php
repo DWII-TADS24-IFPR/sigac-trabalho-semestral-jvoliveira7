@@ -19,7 +19,7 @@ class GraficoController extends Controller
 
             if ($turma) {
                 $labels = $turma->alunos->pluck('nome');
-                $horas = $turma->alunos->pluck('horas_cumpridas');
+                $horas = $turma->alunos->pluck('horas_completas');
 
                 $graficoData = [
                     'labels' => $labels,
